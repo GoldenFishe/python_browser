@@ -1,4 +1,5 @@
 from html.parser import HTMLParser
+import tags
 
 
 class Parser(HTMLParser):
@@ -17,11 +18,12 @@ class Parser(HTMLParser):
         pass
 
     def parse(self, html):
-        self.feed(html)
+        formatted_html = html.replace('\n', '').strip()
+        self.feed(formatted_html)
         return self.ast
 
     def handle_starttag(self, tag, attrs):
-        if tag == 'body':
+        if tag in tags.available_tags:
             node = {
                 "tag": tag,
                 "data": "",
@@ -31,11 +33,12 @@ class Parser(HTMLParser):
             self.queue.append(node)
 
     def handle_data(self, data):
-        if len(self.queue) > 0:
-            self.queue[-1]['data'] = data
+        if self.lasttag in tags.available_tags:
+            if not data.isspace():
+                self.queue[-1]['data'] = data
 
     def handle_endtag(self, tag):
-        if tag == 'body':
+        if tag in tags.available_tags:
             last_item = self.queue.pop()
             if len(self.queue) > 0:
                 self.queue[-1]['children'].append(last_item)

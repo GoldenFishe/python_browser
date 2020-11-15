@@ -21,8 +21,8 @@ def draw_rect(x1, y1, x2, y2):
     canvas.create_rectangle(x1, y1, x2, y2)
 
 
-def draw_text(x, y, text, size):
-    canvas.create_text(x, y, text=text, anchor='w', font="Verdana " + str(size))
+def draw_text(x, y, text, font_family, font_size, font_weight):
+    canvas.create_text(x, y, text=text, anchor='w', font=(font_family, font_size, font_weight))
 
 
 def loop():
@@ -34,8 +34,6 @@ def draw_ui():
 
     def make_request():
         html = get_url(entry.get())
-        # html = '<h1>test</h1>'
-        # print(html)
         parse(html)
 
     button = tk.Button(text="Ввод", command=make_request)

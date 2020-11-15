@@ -7,5 +7,5 @@ cursor_y = 20
 
 
 renderer.draw_ui()
-renderer.draw_canvas(300, 300)
+renderer.draw_canvas(1440, 696)
 renderer.loop()

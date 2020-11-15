@@ -1,5 +1,6 @@
 import renderer
 import parser
+import tags
 
 parser = parser.Parser()
 cursor_x = 20
@@ -19,16 +20,28 @@ def draw(ast):
 def draw_node(node):
     global cursor_y
     if node['tag'] == 'h1':
-        renderer.draw_text(cursor_x, cursor_y, node['data'], 22)
-        cursor_y += 22
+        font_family = tags.styles['h1']['font_family']
+        font_size = tags.styles['h1']['font_size']
+        font_weight = tags.styles['h1']['font_weight']
+        renderer.draw_text(cursor_x, cursor_y, node['data'], font_family, font_size, font_weight)
+        cursor_y += font_size
     if node['tag'] == 'h2':
-        renderer.draw_text(cursor_x, cursor_y, node['data'], 16)
-        cursor_y += 16
+        font_family = tags.styles['h2']['font_family']
+        font_size = tags.styles['h2']['font_size']
+        font_weight = tags.styles['h2']['font_weight']
+        renderer.draw_text(cursor_x, cursor_y, node['data'], font_family, font_size, font_weight)
+        cursor_y += font_size
     if node['tag'] == 'p':
-        renderer.draw_text(cursor_x, cursor_y, node['data'], 14)
-        cursor_y += 14
+        font_family = tags.styles['p']['font_family']
+        font_size = tags.styles['p']['font_size']
+        font_weight = tags.styles['p']['font_weight']
+        renderer.draw_text(cursor_x, cursor_y, node['data'], font_family, font_size, font_weight)
+        cursor_y += font_size
     if node['tag'] == 'span':
-        renderer.draw_text(cursor_x, cursor_y, node['data'], 12)
-        cursor_y += 12
+        font_family = tags.styles['span']['font_family']
+        font_size = tags.styles['span']['font_size']
+        font_weight = tags.styles['span']['font_weight']
+        renderer.draw_text(cursor_x, cursor_y, node['data'], font_family, font_size, font_weight)
+        cursor_y += font_size
     for child_node in node['children']:
         draw_node(child_node)
