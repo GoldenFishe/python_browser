@@ -1,6 +1,10 @@
 import requests
 
 
-def get_url(url):
-    response = requests.get(url)
-    return response.text
+def get_html(url):
+    response = None
+    try:
+        response = requests.get(url)
+    except requests.exceptions.ConnectionError as error:
+        print(error)
+    return response
