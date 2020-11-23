@@ -5,17 +5,47 @@ from network import get_html
 from application import parse
 
 window = tk.Tk()
+# window.geometry('300x200-40+40')
+frame_top = tk.Frame(window)
+frame_bottom = tk.Frame(window, bg="green")
+default_width = 600
+default_height = 400
 canvas = None
-default_width = 1440
-default_height = 696
+
+frame_top.pack()
+frame_bottom.pack()
+
+window.title("Браузер Антона Геннадьевича")
 
 
 def draw_canvas(width=default_width, height=default_height):
     global canvas, default_width, default_height
     default_width = width
     default_height = height
-    canvas = tk.Canvas(width=width, height=height)
-    canvas.pack()
+
+    h = tk.Scrollbar(frame_bottom, orient=tk.HORIZONTAL)
+    v = tk.Scrollbar(frame_bottom, orient=tk.VERTICAL)
+    canvas = tk.Canvas(frame_bottom,
+                       width=width,
+                       height=height,
+                       scrollregion=(0, 0, 1000, 1000),
+                       yscrollcommand=v.set,
+                       xscrollcommand=h.set)
+    h['command'] = canvas.xview
+    v['command'] = canvas.yview
+    canvas.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
+    h.grid(column=0, row=1, sticky=(tk.W, tk.E))
+    v.grid(column=1, row=0, sticky=(tk.N, tk.S))
+    frame_bottom.columnconfigure(0, weight=3)
+    frame_bottom.rowconfigure(1, weight=1)
+    window.grid_columnconfigure(0, weight=1)
+    window.grid_rowconfigure(0, weight=1)
+
+    canvas.grid(column=0, row=0, sticky="nwes")
+    h.grid(column=0, row=1, sticky="we")
+    v.grid(column=1, row=0, sticky="ns")
+    window.grid_columnconfigure(0, weight=1)
+    window.grid_rowconfigure(0, weight=1)
 
 
 def draw_line(x1, y1, x2, y2):
@@ -39,11 +69,11 @@ def loop():
 
 
 def draw_ui():
-    entry = tk.Entry()
+    entry = tk.Entry(frame_top)
 
     def make_request():
         url = entry.get()
-        if not re.match('^http://', url):
+        if not re.match('^http://', url) and not re.match('^https://', url):
             url = 'http://' + url
         html = get_html(url)
         clear_canvas()
@@ -52,6 +82,6 @@ def draw_ui():
         else:
             draw_text(50, 50, 'Неправильный url', 'Arial', 32, 'bold')
 
-    button = tk.Button(text="Ввод", command=make_request)
-    entry.pack()
-    button.pack()
+    button = tk.Button(frame_top, text="Ввод", command=make_request)
+    button.pack(side=tk.LEFT)
+    entry.pack(side=tk.LEFT)

@@ -47,11 +47,41 @@ styles = {
         'font_weight': 'normal',
         'display': 'inline'
     },
+    'b': {
+        'font_family': 'Times',
+        'font_size': 16,
+        'font_weight': 'bold',
+        'display': 'inline'
+    },
+    'a': {
+        'font_family': 'Times',
+        'font_size': 16,
+        'font_weight': 'normal',
+        'display': 'inline'
+    },
     'div': {
         'font_family': 'Times',
         'font_size': 16,
         'font_weight': 'normal',
         'display': 'block'
-    }
+    },
+    'pre': {
+        'font_family': 'monospace',
+        'font_size': 13,
+        'font_weight': 'normal',
+        'display': 'block'
+    },
+    'ul': {
+        'font_family': 'monospace',
+        'font_size': 16,
+        'font_weight': 'normal',
+        'display': 'block'
+    },
+    'ol': {
+        'font_family': 'monospace',
+        'font_size': 16,
+        'font_weight': 'normal',
+        'display': 'block'
+    },
 }
 available_tags = styles.keys()
