@@ -1,11 +1,8 @@
-import renderer
-import parser
+import gui
 
-parser = parser.Parser()
 cursor_x = 20
 cursor_y = 20
 
-
-renderer.draw_ui()
-renderer.draw_canvas(600, 400)
-renderer.loop()
+gui = gui.GUI(600, 400)
+gui.create_window()
+gui.loop()
